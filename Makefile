@@ -37,18 +37,30 @@ laravel-init:
 	@docker-compose exec app composer create-project laravel/laravel $(PROJECT_NAME)
 .PHONY: laravel-init
 
-node-init: nvm-install npm-install run-dev
-.PHONY: node-init
+create-model:
+	@docker-compose exec app php artisan make:model $(MODEL_NAME)
+.PHONY: create-model
 
-npm-install: 
-	@npm install
-.PHONY:npm-install
+create-model-with-migration:
+	@docker-compose exec app php artisan make:model $(MODEL_NAME) -m
+.PHONY: create-model
 
-nvm-install:
-	@nvm install 18.16
-	@nvm use 18.16
-.PHONY:nvm-install
+create-complete-model:
+	@docker-compose exec app php artisan make:model $(MODEL_NAME) --controller --resource --requests --migration --factory --seed
+.PHONY: create-model
 
-run-dev:
-	@npm run dev
-.PHONY: run-dev
+create-migration:
+	@docker-compose exec app php artisan make:migration $(MIGRATION_NAME)
+.PHONY: create-migration
+
+create-event:
+	@docker-compose exec app php artisan make:event $(EVENT_NAME)
+.PHONY: create-event
+
+create-controller:
+	@docker-compose exec app php artisan make:controller $(CONTROLLER_NAME)
+.PHONY: create-controller
+
+create-request:
+	@docker-compose exec app php artisan make:request $(REQUEST_NAME)
+.PHONY: create-request
