@@ -13,7 +13,10 @@ return new class extends Migration
     {
         Schema::create('tasks', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->string('title');
+            $table->boolean('is_important');
+            $table->boolean('is_urgent');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
